@@ -6,8 +6,7 @@ import java.util.concurrent.ExecutionException;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
-
-import com.fasterxml.jackson.databind.ser.std.StringSerializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 
 public class NewOrderMain {
 
