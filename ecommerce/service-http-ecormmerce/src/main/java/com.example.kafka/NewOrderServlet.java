@@ -1,6 +1,5 @@
 package com.example.kafka;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,29 +24,29 @@ public class NewOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-                try {
+        try {
 
-                    // we are not caring about anu security issues, we are only
-                    // showing how to use http as a starting point
-                    var email = req.getParameter("email");
-                    var amount = new BigDecimal(req.getParameter("amount"));
+            // we are not caring about anu security issues, we are only
+            // showing how to use http as a starting point
+            var email = req.getParameter("email");
+            var amount = new BigDecimal(req.getParameter("amount"));
 
-                    var orderId = UUID.randomUUID().toString();
+            var orderId = UUID.randomUUID().toString();
 
-                    var order = new Order(orderId, amount, email);
-                    orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, order);
+            var order = new Order(orderId, amount, email);
+            orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, order);
 
-                    var emailCode = "Thank you for your order! We are processing your order!";
-                    emailDispatcher.send("ECOMMERCE_SEND_EMAIL",  email, emailCode);
+            var emailCode = "Thank you for your order! We are processing your order!";
+            emailDispatcher.send("ECOMMERCE_SEND_EMAIL",  email, emailCode);
 
-                    System.out.println("New order sent successfully.");
-                    resp.setStatus(HttpServletResponse.SC_OK);
-                    resp.getWriter().println("New order sent");
+            System.out.println("New order sent successfully.");
+            resp.setStatus(HttpServletResponse.SC_OK);
+            resp.getWriter().println("New order sent");
 
-                } catch (InterruptedException e) {
-                    throw new ServletException(e);
-                } catch (ExecutionException e) {
-                    throw new ServletException(e);
-                }
-            }
+        } catch (InterruptedException e) {
+            throw new ServletException(e);
+        } catch (ExecutionException e) {
+            throw new ServletException(e);
+        }
+    }
 }
